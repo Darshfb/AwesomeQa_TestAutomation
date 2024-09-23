@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="AwesomeQa">
+
+    <test verbose="2" preserve-order="true" name="Register with happy scenarios">
+        <classes>
+            <class name="testcases.Tc01_HomeLayout">
+                <methods>
+                    <include name="validateEnteringRegisterPage"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc02_Register">
+                <methods>
+                    <include name="registerWithValidEmailAndPassword"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test verbose="2" preserve-order="true" name="Register with invalid scenarios">
+        <classes>
+            <class name="testcases.Tc01_HomeLayout">
+                <methods>
+                    <include name="validateEnteringRegisterPage"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc02_Register">
+                <methods>
+                    <exclude name="registerWithValidEmailAndPassword"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Login with happy scenarios">
+        <classes>
+            <class name="testcases.Tc01_HomeLayout">
+                <methods>
+                    <include name="validateEnteringLoginPage"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc03_Login">
+                <methods>
+                    <include name="loginWithValidData"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Login with invalid scenarios">
+        <classes>
+            <class name="testcases.Tc01_HomeLayout">
+                <methods>
+                    <include name="validateEnteringLoginPage"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc03_Login">
+                <methods>
+                    <exclude name="loginWithValidData"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Forgot password happy scenario">
+        <classes>
+            <class name="testcases.Tc01_HomeLayout">
+                <methods>
+                    <include name="validateEnteringLoginPage"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc03_Login">
+                <methods>
+                    <include name="navigateToForgotPasswordPage"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc04_ForgotPassword">
+                <methods>
+                    <include name="forgotPasswordWithValidData"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Forgot password invalid scenario">
+        <classes>
+            <class name="testcases.Tc01_HomeLayout">
+                <methods>
+                    <include name="validateEnteringLoginPage"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc03_Login">
+                <methods>
+                    <include name="navigateToForgotPasswordPage"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc04_ForgotPassword">
+                <methods>
+                    <include name="forgotPasswordWithInvalidData"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Logged User could search for any product">
+        <classes>
+            <class name="testcases.Tc01_HomeLayout">
+                <methods>
+                    <include name="validateEnteringLoginPage"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc03_Login">
+                <methods>
+                    <include name="loginWithValidData"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc01_HomeLayoutSearching">
+                <methods>
+                    <include name="searchingForItems"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Logged User could switch between currencies to Euro">
+        <classes>
+            <class name="testcases.Tc01_HomeLayout">
+                <methods>
+                    <include name="validateEnteringLoginPage"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc03_Login">
+                <methods>
+                    <include name="loginWithValidData"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc01_HomeLayoutChangeCurrencies">
+                <methods>
+                    <include name="changeCurrencyToEuro"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Logged User could switch between currencies Randomly">
+        <classes>
+            <class name="testcases.Tc01_HomeLayout">
+                <methods>
+                    <include name="validateEnteringLoginPage"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc03_Login">
+                <methods>
+                    <include name="loginWithValidData"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc01_HomeLayoutChangeCurrencies">
+                <methods>
+                    <include name="changeCurrencyRandomly"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Logged user could select different Categories">
+        <classes>
+            <class name="testcases.Tc01_HomeLayout">
+                <methods>
+                    <include name="validateEnteringLoginPage"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc03_Login">
+                <methods>
+                    <include name="loginWithValidData"/>
+                </methods>
+            </class>
+            <class name="testcases.Tc01_HomeLayout_Categories">
+                <methods>
+                    <include name="selectCategories"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
