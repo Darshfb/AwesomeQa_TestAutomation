@@ -1,6 +1,4 @@
 package testcases;
-
-import Pages.P01_HomeLayout;
 import Pages.P03_LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -13,7 +11,7 @@ public class Tc03_Login extends TestBase
     P03_LoginPage loginPage;
     //TODO: Login with valid scenarios
 
-    @Test(priority = 1)
+    @Test(priority = 1, dependsOnGroups = {"step1"}, groups = {"step2"})
     public void loginWithValidData() throws InterruptedException {
         System.out.println(Tc02_Register.email + "Email in login");
         String email = (Tc02_Register.email == null) ? "mostafamahmoudaboads@gmail.com" : Tc02_Register.email;

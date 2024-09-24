@@ -1,9 +1,8 @@
 package testcases;
 
-import Pages.P01_HomeLayout;
+import Pages.P01_HomePage;
 import Pages.P02_RegisterPage;
 import com.github.javafaker.Faker;
-import org.openqa.selenium.Alert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -18,7 +17,7 @@ public class Tc02_Register extends TestBase {
     // TODO: Valid Scenarios
     @Test(priority = 1, description = "Register with valid data")
     public void registerWithValidEmailAndPassword() {
-        P01_HomeLayout homeLayout = new P01_HomeLayout(driver);
+        P01_HomePage homeLayout = new P01_HomePage(driver);
         homeLayout.enterRegisterPage();
         registerPage = new P02_RegisterPage(driver);
         faker = new Faker();
