@@ -1,22 +1,24 @@
 package testcases;
 
 import Pages.P01_HomePage;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Tc01_Home extends TestBase
-{
+public class Tc01_Home extends TestBase {
     P01_HomePage homeLayout;
 
-    @Test(priority = 1)
-    public void validateEnteringRegisterPage()
-    {
+    @Test(priority = 1
+            , groups = {"step1"}
+    )
+    public void validateEnteringRegisterPage() {
         homeLayout = new P01_HomePage(driver);
         homeLayout.enterRegisterPage();
     }
 
-    @Test(priority = 2, groups = {"step1"})
-    public void validateEnteringLoginPage()
-    {
+    @Test(priority = 1
+            , groups = {"step1"}
+    )
+    public void validateEnteringLoginPage() {
         homeLayout = new P01_HomePage(driver);
         homeLayout.enterLoginPage();
     }
@@ -31,11 +33,13 @@ public class Tc01_Home extends TestBase
 
 
     @Test(priority = 4)
-    public void search(){
+    public void search() {
         homeLayout.search("MacBook");
     }
 
-    @Test(priority = 5, dependsOnGroups = {"step2"})
+    @Test(priority = 5
+            , dependsOnGroups = {"step2"}
+    )
     public void selectCategories() throws InterruptedException {
         homeLayout.openCategoryDropMenu();
         System.out.println("Hello world");
@@ -63,4 +67,24 @@ public class Tc01_Home extends TestBase
         Thread.sleep(10000);
 
     }
+
+    @Test(priority = 3, dependsOnGroups = {"step2"})
+    public void addItemToCart() {
+        homeLayout.addItemToCartFromHome();
+        Assert.assertTrue(homeLayout.getCartTotal().contains("2"));
+    }
+
+    @Test(priority = 4, dependsOnGroups = {"step2"})
+    public void addToWishList() {
+        homeLayout.addItemToWishListFromHome();
+    }
+
+    @Test(priority = 4)
+    public void goToCart(){
+        homeLayout.navigateToCart();
+    }
+
+
+
+
 }

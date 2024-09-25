@@ -15,7 +15,7 @@ public class Tc02_Register extends TestBase {
     Faker faker;
 
     // TODO: Valid Scenarios
-    @Test(priority = 1, description = "Register with valid data")
+    @Test(priority = 1, description = "Register with valid data", groups = {"step2"},dependsOnGroups = {"step1"})
     public void registerWithValidEmailAndPassword() {
         P01_HomePage homeLayout = new P01_HomePage(driver);
         homeLayout.enterRegisterPage();
