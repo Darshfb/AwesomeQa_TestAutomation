@@ -54,9 +54,18 @@ public class P01_HomePage {
     @FindBy(xpath = "(//button)[@type='button'][4]")
     WebElement searchButton;
 
+
+    @FindBy(xpath = "(//div)[@id='content']/div[3]/div")
+    List<WebElement> searchResultList;
+
     public void search(String searchText) {
         searchTextField.sendKeys(searchText);
         searchButton.click();
+    }
+
+    //(//div)[@id='content']/div[3]/div[1]/div/div[2]/div[1]/h4
+    public Boolean searchResult(String searchText) {
+        return searchResultList.get(0).findElement(By.xpath("//div[1]/div/div[2]/div[1]/h4")).getText().contains(searchText);
     }
 
     @FindBy(xpath = "(//span)[text()='Currency']")
@@ -74,12 +83,24 @@ public class P01_HomePage {
         else poundSterlingElement.click();
     }
 
+    @FindBy(xpath = "(//strong)")
+    WebElement poundSterlingText;
+
+    public Boolean getEuroText() {
+        return poundSterlingText.getText().contains("€");
+    }
+
+
     @FindBy(xpath = "(//ul)[@class='nav navbar-nav']/li")
     List<WebElement> categoryList;
 
+    private String categoryName = "";
+
+    @FindBy(xpath = "(//div)[@id='content']/h2")
+    WebElement categoryTitleName;
+
     public void openCategoryDropMenu() {
         WebElement category = selectRandomElement(categoryList);
-        System.out.println("The selected category is: " + category.getText());
         Actions actions = new Actions(customDriver);
         actions.moveToElement(category).perform();
         category.click();
@@ -89,9 +110,10 @@ public class P01_HomePage {
             if (list.isEmpty()) {
                 System.out.println("There are no categories");
                 System.out.println(list.size());
-                System.out.println(list);
             } else {
-                selectRandomElement(list).click();
+                WebElement categoryItemName = selectRandomElement(list);
+                categoryName = categoryItemName.getText();
+                categoryItemName.click();
                 System.out.println("There is some categories");
 
             }
@@ -99,7 +121,21 @@ public class P01_HomePage {
             // Handle the exception and retry
             System.out.println("Stale element exception. Retrying...");
         }
+    }
 
+    public Boolean isSelectedCategoryTrue()
+    {
+        WebDriverWait wait = new WebDriverWait(customDriver, Duration.ofSeconds(10));
+        try {
+            wait.until(ExpectedConditions.urlContains("https://awesomeqa.com/ui/index.php?route=product/category"));
+            String categoryTitle = categoryTitleName.getText();
+            System.out.println(categoryTitle + " The title ");
+            System.out.println(categoryName + " The title ");
+            return categoryName.contains(categoryTitle);
+        } catch (TimeoutException e) {
+            System.err.println("URL did not change as expected within the timeout.");
+        }
+        return false;
     }
 
     @FindBy(xpath = "(//div)[@id='content']/div[2]/div")
@@ -162,7 +198,7 @@ public class P01_HomePage {
     @FindBy(xpath = "(//i)[@class='fa fa-shopping-cart'][1]")
     WebElement cartIcon;
 
-    public void navigateToCart(){
+    public void navigateToCart() {
         cartIcon.click();
     }
 

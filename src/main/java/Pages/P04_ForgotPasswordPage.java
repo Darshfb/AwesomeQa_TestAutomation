@@ -25,7 +25,12 @@ public class P04_ForgotPasswordPage {
         submitButton.click();
     }
 
-    public String getForgotPasswordSuccessText() {
-        return forgotPasswordSuccessText.getText();
+    public Boolean getForgotPasswordSuccessText(Boolean validEmail) {
+        if (validEmail)
+            return forgotPasswordSuccessText.getText().equals("An email with a confirmation link has been sent your email address.");
+        else
+            return forgotPasswordSuccessText.getText().equals("Warning: The E-Mail Address was not found in our records, please try again!");
+
     }
+
 }

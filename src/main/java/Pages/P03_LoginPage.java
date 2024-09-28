@@ -38,11 +38,12 @@ public class P03_LoginPage
         loginButton.click();
     }
 
-    public String getErrorMessage(){
-        return errorMessage.getText();
+    public Boolean getErrorMessage(){
+        return errorMessage.getText().equals("Warning: No match for E-Mail Address and/or Password.");
     }
-    public String getMyAccountText(){
-        return myAccountTextButton.getText();
+
+    public Boolean getMyAccountText(){
+        return myAccountTextButton.getText().equals("My Account");
     }
 
     public void navigateToForgotPasswordPage(){

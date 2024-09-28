@@ -48,11 +48,11 @@ public class P02_RegisterPage {
     @FindBy(xpath = "(//input)[@type=\"submit\"]")
     WebElement loginButton;
 
-    @FindBy(xpath = "(//div)[text()='Password must be between 4 and 20 characters!']")
+    @FindBy(xpath = "(//div)[@class='text-danger']")
     WebElement passwordValidation;
 
-    @FindBy(xpath = "//*[text()='Your Personal Details']")
-    WebElement personalDetailsMessage;
+    @FindBy(xpath = "(//h1)[text()='Register Account']")
+    WebElement stillInRegisterAccount;
 
     @FindBy(xpath = "(//div)[@class='alert alert-danger alert-dismissible']")
     WebElement policyMessage;
@@ -70,7 +70,7 @@ public class P02_RegisterPage {
         this.phone.clear();
         this.password.clear();
 //        this.agreement.di;
-        if(this.agreement.isSelected())
+        if (this.agreement.isSelected())
             this.agreement.click();
         this.confirmPassword.clear();
 
@@ -90,29 +90,23 @@ public class P02_RegisterPage {
             wait.until(ExpectedConditions.visibilityOfElementLocated(continueButton)).click();
     }
 
-    public String checkPasswordErrorMessage(String text) {
-        String message = "";
-        System.out.println("Text is " + text);
+    public Boolean checkPasswordErrorMessage(String text) {
         switch (text) {
             case ("password"):
-                message = passwordValidation.getText();
-                return message;
+                return passwordValidation.getText().contains("Password must be between 4 and 20 characters!");
             case "email":
-                message = personalDetailsMessage.getText();
-                return message;
+                return stillInRegisterAccount.getText().contains("Register Account");
             case "policy":
-                message = policyMessage.getText();
-
+                return policyMessage.getText().contains("Warning: You must agree to the Privacy Policy!");
+            default:
+                return false;
         }
-        System.out.println(message + "-------------------");
-        return message;
+
     }
 
-    public String getMyAccountText(){
+    public String getMyAccountText() {
         return myAccountTextButton.getText();
     }
-
-
 
 
 }

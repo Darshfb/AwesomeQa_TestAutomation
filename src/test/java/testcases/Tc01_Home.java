@@ -3,21 +3,18 @@ package testcases;
 import Pages.P01_HomePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class Tc01_Home extends TestBase {
     P01_HomePage homeLayout;
 
-    @Test(priority = 1
-            , groups = {"step1"}
-    )
+    @Test(priority = 1, groups = {"step1"})
     public void validateEnteringRegisterPage() {
         homeLayout = new P01_HomePage(driver);
         homeLayout.enterRegisterPage();
     }
 
-    @Test(priority = 1
-            , groups = {"step1"}
-    )
+    @Test(priority = 1, groups = {"step1"})
     public void validateEnteringLoginPage() {
         homeLayout = new P01_HomePage(driver);
         homeLayout.enterLoginPage();
@@ -32,40 +29,38 @@ public class Tc01_Home extends TestBase {
     }
 
 
-    @Test(priority = 4)
-    public void search() {
+    @Test(priority = 1, description = "Searching for items", dependsOnGroups = {"step2"})
+    public void searchingForItems() throws InterruptedException {
+        homeLayout = new P01_HomePage(driver);
         homeLayout.search("MacBook");
-    }
-
-    @Test(priority = 5
-            , dependsOnGroups = {"step2"}
-    )
-    public void selectCategories() throws InterruptedException {
-        homeLayout.openCategoryDropMenu();
-        System.out.println("Hello world");
-        Thread.sleep(2000);
+        Assert.assertTrue(homeLayout.searchResult("MacBook"));
+        Thread.sleep(1000);
     }
 
     @Test(priority = 3, description = "Change currency to Euro")
     void changeCurrencyToEuro() throws InterruptedException {
         homeLayout = new P01_HomePage(driver);
         homeLayout.openCurrencyDropMenu(false);
-        Thread.sleep(2000);
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(homeLayout.getEuroText());
+        softAssert.assertAll();
+        Thread.sleep(1000);
     }
 
     @Test(priority = 2, description = "Change currency Randomly", dependsOnGroups = {"step2"})
     public void changeCurrencyRandomly() throws InterruptedException {
         homeLayout = new P01_HomePage(driver);
         homeLayout.openCurrencyDropMenu(true);
-        Thread.sleep(10000);
+        Thread.sleep(1000);
     }
 
-    @Test(priority = 1, description = "Searching for items", dependsOnGroups = {"step2"})
-    public void searchingForItems() throws InterruptedException {
-        homeLayout = new P01_HomePage(driver);
-        homeLayout.search("MacBook");
-        Thread.sleep(10000);
+    @Test(priority = 5, dependsOnGroups = {"step2"})
+    public void selectCategories() throws InterruptedException {
+        homeLayout.openCategoryDropMenu();
 
+//        System.out.println(homeLayout.isSelectedCategoryTrue());
+        System.out.println(homeLayout.isSelectedCategoryTrue() + " getTitle" );
+        Thread.sleep(1000);
     }
 
     @Test(priority = 3, dependsOnGroups = {"step2"})
@@ -80,11 +75,9 @@ public class Tc01_Home extends TestBase {
     }
 
     @Test(priority = 4)
-    public void goToCart(){
+    public void goToCart() {
         homeLayout.navigateToCart();
     }
-
-
 
 
 }
