@@ -14,14 +14,14 @@ public class Tc03_Login extends TestBase {
 
     @Test(priority = 2, dependsOnGroups = {"step1"}, groups = {"step2"}
     )
-    public void loginWithValidData() throws InterruptedException {
+    public void loginWithValidData()
+    {
         System.out.println(Tc02_Register.email + "Email in login");
         String email = (Tc02_Register.email == null) ? "mostafamahmoudaboads@gmail.com" : Tc02_Register.email;
         String password = (Tc02_Register.password == null) ? "AB123456" : Tc02_Register.password;
         loginPage = new P03_LoginPage(driver);
         loginPage.login(email, password);
         Assert.assertTrue(loginPage.getMyAccountText());
-        Thread.sleep(1000);
     }
 
     //TODO: Login with invalid scenarios
@@ -36,8 +36,6 @@ public class Tc03_Login extends TestBase {
         softAssert.assertTrue(loginPage.getErrorMessage());
         softAssert.assertAll();
     }
-
-    String loginError = "Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.";
 
     @Test(priority = 3)
     public void loginWithInvalidEmailAndValidPassword() {
@@ -63,6 +61,7 @@ public class Tc03_Login extends TestBase {
         loginPage = new P03_LoginPage(driver);
         loginPage.navigateToForgotPasswordPage();
     }
+
 }
 
 

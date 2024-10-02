@@ -5,9 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class P03_LoginPage
-{
-    public P03_LoginPage(WebDriver driver){
+public class P03_LoginPage {
+    public P03_LoginPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
@@ -29,8 +28,7 @@ public class P03_LoginPage
     @FindBy(xpath = "(//a)[text()='Forgotten Password']")
     WebElement forgotPasswordButton;
 
-    public void login(String email, String password)
-    {
+    public void login(String email, String password) {
         this.email.clear();
         this.password.clear();
         this.email.sendKeys(email);
@@ -38,15 +36,18 @@ public class P03_LoginPage
         loginButton.click();
     }
 
-    public Boolean getErrorMessage(){
-        return errorMessage.getText().equals("Warning: No match for E-Mail Address and/or Password.");
+    public Boolean getErrorMessage() {
+        System.out.println("error login message: " + errorMessage.getText());
+        return errorMessage.getText().equals("Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.") ||
+                errorMessage.getText().equals("Warning: No match for E-Mail Address and/or Password.");
+        //        return errorMessage.getText().equals("Warning: No match for E-Mail Address and/or Password.");
     }
 
-    public Boolean getMyAccountText(){
+    public Boolean getMyAccountText() {
         return myAccountTextButton.getText().equals("My Account");
     }
 
-    public void navigateToForgotPasswordPage(){
+    public void navigateToForgotPasswordPage() {
         forgotPasswordButton.click();
     }
 

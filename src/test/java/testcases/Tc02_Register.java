@@ -21,10 +21,8 @@ public class Tc02_Register extends TestBase {
         homeLayout.enterRegisterPage();
         registerPage = new P02_RegisterPage(driver);
         faker = new Faker();
-
         registerPage.register(faker.name().firstName(), faker.name().lastName(), email = faker.internet().emailAddress(), faker.phoneNumber().phoneNumber(), password = faker.internet().password(), false, true);
-
-        Assert.assertEquals(registerPage.getMyAccountText(), "My Account");
+        Assert.assertTrue(registerPage.getMyAccountText());
 
     }
 
@@ -43,7 +41,6 @@ public class Tc02_Register extends TestBase {
     @Test(priority = 2, description = "Register with inValid email valid password")
     public void registerWithInvalidEmailAndPassword() {
         registerPage.register(faker.name().firstName(), faker.name().lastName(), invalidEmail, faker.phoneNumber().phoneNumber(), faker.internet().password(), true, true);
-
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(registerPage.checkPasswordErrorMessage("email"));
         softAssert.assertAll();

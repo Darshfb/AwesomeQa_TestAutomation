@@ -112,6 +112,7 @@ public class P05_CartPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("comment")));
         this.comment.sendKeys(comment);
         continueToPaymentMethod.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("agree")));
         agree.click();
         continueToPaymentMethod2.click();
         confirmButton.click();

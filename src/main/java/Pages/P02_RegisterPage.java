@@ -104,8 +104,8 @@ public class P02_RegisterPage {
 
     }
 
-    public String getMyAccountText() {
-        return myAccountTextButton.getText();
+    public Boolean getMyAccountText() {
+        return myAccountTextButton.getText().equals("My Account");
     }
 
 

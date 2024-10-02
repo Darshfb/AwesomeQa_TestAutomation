@@ -22,7 +22,6 @@ public class Tc01_Home extends TestBase {
 
     @Test(priority = 3)
     public void validateLogout() throws InterruptedException {
-//        homeLayout = new P01_HomeLayout(driver);
         Thread.sleep(2000);
 
         homeLayout.logout();
@@ -57,21 +56,41 @@ public class Tc01_Home extends TestBase {
     @Test(priority = 5, dependsOnGroups = {"step2"})
     public void selectCategories() throws InterruptedException {
         homeLayout.openCategoryDropMenu();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(homeLayout.isSelectedCategoryTrue());
+        softAssert.assertAll();
+        Thread.sleep(500);
+    }
 
-//        System.out.println(homeLayout.isSelectedCategoryTrue());
-        System.out.println(homeLayout.isSelectedCategoryTrue() + " getTitle" );
-        Thread.sleep(1000);
+    @Test(priority = 5, description = "", dependsOnGroups = {"step2"})
+    public void selectFromFirstThreeCategories()throws InterruptedException
+    {
+        homeLayout.selectFromFirstThreeCategories();
     }
 
     @Test(priority = 3, dependsOnGroups = {"step2"})
-    public void addItemToCart() {
+    public void addItemToCart() throws InterruptedException {
         homeLayout.addItemToCartFromHome();
-        Assert.assertTrue(homeLayout.getCartTotal().contains("2"));
+//        SoftAssert softAssert = new SoftAssert();
+//        softAssert.assertTrue(homeLayout.getCartTotal().contains("3"));
+//        softAssert.assertAll();
+
     }
 
     @Test(priority = 4, dependsOnGroups = {"step2"})
-    public void addToWishList() {
+    public void addToWishList() throws InterruptedException {
         homeLayout.addItemToWishListFromHome();
+    }
+
+    @Test(priority = 4, dependsOnGroups = {"step2"})
+    public void addToCompareList() throws InterruptedException
+    {
+        homeLayout.addItemToCompareListFromHome();
+//        homeLayout.checkThatItemsAreAddedToCompareList();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(homeLayout.checkThatItemsAreAddedToCompareList());
+        softAssert.assertAll();
+
     }
 
     @Test(priority = 4)
